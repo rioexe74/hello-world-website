@@ -4,114 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Coin</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Bebas Neue', sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow-x: hidden;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .left-gif, .right-gif {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .left-gif img, .right-gif img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .center-content {
-            flex: 2;
-            padding: 20px;
-        }
-
-        .logo {
-            max-width: 200px;
-            margin-bottom: 20px;
-        }
-
-        .meme-text {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .copy-button {
-            background-color: #fff;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-family: 'Bebas Neue', sans-serif;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .copy-button:hover {
-            background-color: #ccc;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .left-gif, .right-gif {
-                display: none;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Impact&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-    <div class="container">
-        <div class="left-gif">
-            <img src="https://media.giphy.com/media/tHIRLHtNwxpjIFcEo0/giphy.gif" alt="Funny GIF">
-        </div>
-
-        <div class="center-content">
-            <img src="https://i.imgur.com/your-logo.png" alt="Meme Coin Logo" class="logo">
-            <div class="meme-text">
-                <p>a² + b² = c²</p>
-                <p>Autism² + Bagholder² = Community²</p>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            <!-- Left GIF -->
+            <div class="hidden lg:flex justify-center gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2ZzZ2d2N3F2b2ZqZzRzM3BqMWJzNnNqY3U1a3JzNnFzNnNqY3U1JmN0PWc/5i7o7oWvjoww0/giphy.gif" alt="Funny GIF" class="rounded-lg shadow-lg w-3/4">
             </div>
-            <button class="copy-button" onclick="copyToClipboard('2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump')">
-                Copy Contract
-            </button>
-        </div>
-
-        <div class="right-gif">
-            <img src="https://media.giphy.com/media/tHIRLHtNwxpjIFcEo0/giphy.gif" alt="Funny GIF">
+            <!-- Center Content -->
+            <div class="flex flex-col items-center text-center space-y-6">
+                <!-- Logo -->
+                <img src="logo.jpg" alt="Meme Coin Logo" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full border-4 border-cyan-400 shadow-lg shadow-cyan-400/50">
+                <!-- Meme Text -->
+                <div class="text-white text-3xl md:text-4xl lg:text-5xl space-y-2 meme-text px-2">
+                    <p>a² + b² = c²</p>
+                    <p>Autism² + Bagholder² = Community²</p>
+                </div>
+                <!-- Copy Contract Button -->
+                <div class="w-full px-4 sm:w-auto">
+                    <button id="copyButton" class="btn-copy w-full bg-cyan-400 text-black border-2 border-white text-2xl md:text-3xl py-3 px-8 rounded-lg shadow-md hover:bg-fuchsia-500 hover:text-white focus:outline-none">
+                        Copy Contract
+                    </button>
+                    <p id="contractAddress" class="hidden">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</p>
+                </div>
+                <!-- Social Links -->
+                <div class="flex space-x-6 pt-4">
+                    <a href="#" class="text-white hover:text-cyan-400 transition-colors">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-cyan-400 transition-colors">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23a.66.66 0 00-.08-.4l-4.06-3.95a.66.66 0 01.37-1.12l4.24-.62a.67.67 0 00.5-.36l1.9-3.83a.67.67 0 011.2 0l1.9 3.83a.67.67 0 00.5.36l4.24.62a.66.66 0 01.37 1.12l-4.06 3.95a.66.66 0 00-.08.4l.28 4.23a.66.66 0 01-.96.7l-3.79-1.99a.67.67 0 00-.62 0l-3.79 1.99a.66.66 0 01-.96-.7z" clip-rule="evenodd" fill-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+            <!-- Right GIF -->
+            <div class="hidden lg:flex justify-center gif-container" style="animation-delay: -3s;">
+                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmk5c2ZzN3F2b2ZqZzRzM3BqMWJzNnNqY3U1a3JzNnFzNnNqY3U1JmN0PWc/l3vR1tookIhM6nLd6/giphy.gif" alt="Funny GIF" class="rounded-lg shadow-lg w-3/4">
+            </div>
+            <!-- Mobile GIFs -->
+            <div class="lg:hidden flex justify-around w-full mt-8">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2ZzZ2d2N3F2b2ZqZzRzM3BqMWJzNnNqY3U1a3JzNnFzNnNqY3U1JmN0PWc/5i7o7oWvjoww0/giphy.gif" alt="Funny GIF" class="rounded-lg shadow-lg w-2/5">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmk5c2ZzN3F2b2ZqZzRzM3BqMWJzNnNqY3U1a3JzNnFzNnNqY3U1JmN0PWc/l3vR1tookIhM6nLd6/giphy.gif" alt="Funny GIF" class="rounded-lg shadow-lg w-2/5">
+            </div>
         </div>
     </div>
-
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Contract address copied to clipboard!');
-            }, function(err) {
-                alert('Could not copy text: ', err);
-            });
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>

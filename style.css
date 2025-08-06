@@ -1,0 +1,29 @@
+body {
+    font-family: 'Bebas Neue', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+/* Custom styles for meme energy */
+.meme-text {
+    font-family: 'Impact', 'Bebas Neue', sans-serif;
+    text-shadow: 2px 2px 4px #ff00ff, -2px -2px 4px #00ffff;
+    -webkit-text-stroke: 1px black;
+}
+.btn-copy {
+    font-family: 'Bebas Neue', sans-serif;
+    transition: all 0.2s ease-in-out;
+}
+.btn-copy:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00ffff, 0 0 25px #ff00ff;
+}
+.gif-container {
+    animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+  
