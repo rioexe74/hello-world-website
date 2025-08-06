@@ -1,41 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autism² + Bagholder² = Community²</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Coin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .left-gif, .right-gif {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .left-gif img, .right-gif img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .center-content {
+            flex: 2;
+            padding: 20px;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .meme-text {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .copy-button {
+            background-color: #fff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background-color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-gif, .right-gif {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="side-gif left">
-      <img src="left.gif" alt="Funny GIF" />
+
+    <div class="container">
+        <div class="left-gif">
+            <img src="https://media.giphy.com/media/tHIRLHtNwxpjIFcEo0/giphy.gif" alt="Funny GIF">
+        </div>
+
+        <div class="center-content">
+            <img src="https://i.imgur.com/your-logo.png" alt="Meme Coin Logo" class="logo">
+            <div class="meme-text">
+                <p>a² + b² = c²</p>
+                <p>Autism² + Bagholder² = Community²</p>
+            </div>
+            <button class="copy-button" onclick="copyToClipboard('2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump')">
+                Copy Contract
+            </button>
+        </div>
+
+        <div class="right-gif">
+            <img src="https://media.giphy.com/media/tHIRLHtNwxpjIFcEo0/giphy.gif" alt="Funny GIF">
+        </div>
     </div>
 
-    <div class="main-content">
-      <img src="logo.png" alt="Coin Logo" class="logo" />
-      <div class="meme-text">
-        <p>a² + b² = c²</p>
-        <p>Autism² + Bagholder² = Community²</p>
-      </div>
-      <button id="copyBtn">📋 Copy Contract</button>
-      <p class="address" id="contractAddress">
-        2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump
-      </p>
-    </div>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Contract address copied to clipboard!');
+            }, function(err) {
+                alert('Could not copy text: ', err);
+            });
+        }
+    </script>
 
-    <div class="side-gif right">
-      <img src="right.gif" alt="Funny GIF" />
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("copyBtn").addEventListener("click", function () {
-      const text = document.getElementById("contractAddress").textContent;
-      navigator.clipboard.writeText(text);
-      alert("Contract address copied!");
-    });
-  </script>
 </body>
 </html>
