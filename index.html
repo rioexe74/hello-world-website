@@ -1,199 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meme Coin - Autism² + Bagholder² = Community²</title>
-  <link href="https://fonts.googleapis.com/css?family=Impact|Bebas+Neue&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --meme-font: 'Impact', 'Bebas Neue', Arial, sans-serif;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: #111;
-      color: #fff;
-      font-family: var(--meme-font);
-      min-height: 100vh;
-      width: 100vw;
-      overflow-x: hidden;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      justify-content: center;
-      align-items: center;
-    }
-    .main-content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      width: 100vw;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 0 1rem 0;
-    }
-    .side-gif {
-      flex: 1 1 120px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 80px;
-      min-height: 200px;
-    }
-    .side-gif img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      border-radius: 12px;
-      background: #222;
-      box-shadow: 0 0 10px #0008;
-    }
-    .center-meme {
-      flex: 2 1 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
-      background: #181818;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px #000a;
-      min-width: 260px;
-      max-width: 95vw;
-    }
-    .logo {
-      width: 160px;
-      height: 160px;
-      object-fit: contain;
-      margin-bottom: 1.2rem;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 16px #000a;
-    }
-    .meme-text {
-      text-align: center;
-      font-family: var(--meme-font);
-      font-size: 2.1rem;
-      color: #fff;
-      margin-bottom: 0.7rem;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 0 #000, 0 0 8px #00f2;
-    }
-    .meme-text.sub {
-      font-size: 1.3rem;
-      color: #ffeb3b;
-      margin-bottom: 1.5rem;
-      text-shadow: 2px 2px 0 #000, 0 0 8px #ff0a;
-    }
-    .copy-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 1.2rem;
-    }
-    .contract-box {
-      font-family: 'Fira Mono', 'Consolas', monospace;
-      background: #222;
-      color: #fff;
-      padding: 0.7em 1.2em;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      margin-bottom: 0.7rem;
-      word-break: break-all;
-      box-shadow: 0 0 8px #0006;
-    }
-    #copy-btn {
-      padding: 0.6em 1.5em;
-      font-size: 1.1rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      background: #ffeb3b;
-      color: #222;
-      font-weight: 700;
-      font-family: var(--meme-font);
-      letter-spacing: 1px;
-      transition: background 0.2s;
-      margin-bottom: 0.5rem;
-      box-shadow: 0 2px 8px #0004;
-    }
-    #copy-btn:hover {
-      background: #fff200;
-    }
-    #copy-msg {
-      color: #22c55e;
-      font-size: 1rem;
-      margin-top: 0.2rem;
-      transition: opacity 0.2s;
-      font-family: var(--meme-font);
-    }
-    @media (max-width: 900px) {
-      .main-content {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 1rem 0;
-      }
-      .side-gif {
-        min-height: 60px;
-        margin: 0.5rem 0;
-      }
-      .center-meme {
-        min-width: 0;
-        width: 100%;
-        padding: 1.2rem 0.5rem;
-      }
-    }
-    @media (max-width: 600px) {
-      .logo {
-        width: 110px;
-        height: 110px;
-      }
-      .meme-text {
-        font-size: 1.2rem;
-      }
-      .meme-text.sub {
-        font-size: 1rem;
-      }
-      .main-content {
-        padding: 0.5rem 0;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autism² + Bagholder² = Community²</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="main-content">
-    <div class="side-gif">
-      <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" alt="Funny meme gif left" />
+  <div class="container">
+    <div class="side-gif left">
+      <img src="left.gif" alt="Funny GIF" />
     </div>
-    <div class="center-meme">
-      <img src="logo.jpg" alt="Meme Coin Logo" class="logo" />
-      <div class="meme-text">a² + b² = c²</div>
-      <div class="meme-text sub">Autism² + Bagholder² = Community²</div>
-      <div class="copy-section">
-        <div class="contract-box" id="ca-value">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</div>
-        <button id="copy-btn">Copy Contract</button>
-        <span id="copy-msg">Copied!</span>
+
+    <div class="main-content">
+      <img src="logo.png" alt="Coin Logo" class="logo" />
+      <div class="meme-text">
+        <p>a² + b² = c²</p>
+        <p>Autism² + Bagholder² = Community²</p>
       </div>
+      <button id="copyBtn">📋 Copy Contract</button>
+      <p class="address" id="contractAddress">
+        2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump
+      </p>
     </div>
-    <div class="side-gif">
-      <img src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif" alt="Funny meme gif right" />
+
+    <div class="side-gif right">
+      <img src="right.gif" alt="Funny GIF" />
     </div>
   </div>
+
   <script>
-    const copyBtn = document.getElementById('copy-btn');
-    const caValue = document.getElementById('ca-value').textContent;
-    const copyMsg = document.getElementById('copy-msg');
-    copyMsg.style.display = 'none';
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(caValue).then(() => {
-        copyMsg.style.display = 'inline';
-        setTimeout(() => copyMsg.style.display = 'none', 1500);
-      });
+    document.getElementById("copyBtn").addEventListener("click", function () {
+      const text = document.getElementById("contractAddress").textContent;
+      navigator.clipboard.writeText(text);
+      alert("Contract address copied!");
     });
   </script>
 </body>
