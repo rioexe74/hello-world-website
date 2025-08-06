@@ -10,10 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Impact&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 overflow-y-auto py-20">
+<body class="p-4 overflow-y-auto py-20">
     <div class="w-full max-w-7xl mx-auto relative">
-        <!-- Left Video -->
-        <div class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
+        <div class="absolute -left-24 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
             <div class="border-8 border-cyan-400 border-double p-2 bg-black rounded-lg shadow-2xl shadow-cyan-400/50">
                 <video src="clip.mp4" alt="Left Video" class="w-64 h-64 object-cover rounded" autoplay loop muted>
                     Your browser does not support the video tag.
@@ -21,8 +20,7 @@
             </div>
         </div>
         
-        <!-- Right Video -->
-        <div class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
+        <div class="absolute -right-24 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
             <div class="border-8 border-fuchsia-500 border-double p-2 bg-black rounded-lg shadow-2xl shadow-fuchsia-500/50">
                 <video src="clip2.mp4" alt="Right Video" class="w-64 h-64 object-cover rounded" autoplay loop muted>
                     Your browser does not support the video tag.
@@ -30,23 +28,18 @@
             </div>
         </div>
         
-        <!-- Center Content -->
-        <div class="flex flex-col items-center text-center space-y-6 px-80">
-            <!-- Logo -->
+        <div class="flex flex-col items-center text-center space-y-6 px-4 md:px-64">
             <img src="logo.png" alt="Meme Coin Logo" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full border-4 border-cyan-400 shadow-lg shadow-cyan-400/50">
-            <!-- Meme Text -->
             <div class="text-white text-3xl md:text-4xl lg:text-5xl space-y-2 meme-text px-2 mt-16">
-                <p>a² + b² = c²</p>
+                <p>$a^2 + b^2 = c^2$</p>
                 <p class="whitespace-nowrap">Autism² + Bagholder² = Community²</p>
             </div>
-            <!-- Copy Contract Button -->
             <div class="w-full px-4 sm:w-auto mt-8">
                 <button id="copyButton" class="btn-copy w-full bg-cyan-400 text-black border-2 border-white text-2xl md:text-3xl py-3 px-8 rounded-lg shadow-md hover:bg-fuchsia-500 hover:text-white focus:outline-none">
                     Copy CA
                 </button>
                 <p id="contractAddress" class="hidden">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</p>
             </div>
-            <!-- Social Links -->
             <div class="flex space-x-6 pt-4">
                 <a href="#" class="text-white hover:text-cyan-400 transition-colors">
                     <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
