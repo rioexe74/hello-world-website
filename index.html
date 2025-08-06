@@ -18,9 +18,42 @@
       color: #333;
       font-size: 3rem;
     }
+    .ca-section {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    #copy-btn {
+      margin-left: 10px;
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid #888;
+      border-radius: 4px;
+      background: #fff;
+      transition: background 0.2s;
+    }
+    #copy-btn:hover {
+      background: #f0f0f0;
+    }
   </style>
 </head>
 <body>
   <h1>Hello, World!</h1>
+  <div class="ca-section">
+    <p id="ca-value">CA: <span>2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</span></p>
+    <button id="copy-btn">Copy CA</button>
+    <span id="copy-msg" style="display:none; color:green; margin-left:10px;">Copied!</span>
+  </div>
+  <script>
+    const copyBtn = document.getElementById('copy-btn');
+    const caValue = document.querySelector('#ca-value span').textContent;
+    const copyMsg = document.getElementById('copy-msg');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(caValue).then(() => {
+        copyMsg.style.display = 'inline';
+        setTimeout(() => copyMsg.style.display = 'none', 1500);
+      });
+    });
+  </script>
 </body>
 </html>
