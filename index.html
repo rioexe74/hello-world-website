@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Impact&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center min-h-screen p-4 overflow-y-auto">
     <div class="w-full max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <!-- Left Video -->
@@ -26,12 +26,12 @@
                 <!-- Meme Text -->
                 <div class="text-white text-3xl md:text-4xl lg:text-5xl space-y-2 meme-text px-2">
                     <p>a² + b² = c²</p>
-                    <p>Autism² + Bagholder² = Community²</p>
+                    <p class="whitespace-nowrap">Autism² + Bagholder² = Community²</p>
                 </div>
                 <!-- Copy Contract Button -->
                 <div class="w-full px-4 sm:w-auto">
                     <button id="copyButton" class="btn-copy w-full bg-cyan-400 text-black border-2 border-white text-2xl md:text-3xl py-3 px-8 rounded-lg shadow-md hover:bg-fuchsia-500 hover:text-white focus:outline-none">
-                        Copy Contract
+                        Copy CA
                     </button>
                     <p id="contractAddress" class="hidden">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</p>
                 </div>
