@@ -18,13 +18,20 @@
                 <video src="clip.mp4" class="rounded-lg shadow-lg w-3/4" autoplay loop muted playsinline></video>
             </div>
             <!-- Center Content -->
-            <div class="flex flex-col items-center text-center space-y-6">
-                <!-- Logo -->
-                <img src="logo.png" alt="Meme Coin Logo" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full border-4 border-cyan-400 shadow-lg shadow-cyan-400/50">
-                <!-- Meme Text -->
-                <div class="text-white text-3xl md:text-4xl lg:text-5xl space-y-2 meme-text px-2">
-                    <p>a² + b² = c²</p>
-                    <p>Autism² + Bagholder² = Community²</p>
+            <div class="flex flex-col items-center text-center space-y-6 w-full">
+                <!-- Full Equation Above Logo -->
+                <div class="meme-text text-white text-2xl md:text-3xl lg:text-4xl mb-2">a² + b² = c²</div>
+                <!-- Logo with split equation -->
+                <div class="flex flex-row items-center justify-center w-full space-x-2 mb-2">
+                    <span class="meme-text text-white text-xl md:text-2xl lg:text-3xl hidden sm:inline-block">a² + b²</span>
+                    <img src="logo.png" alt="Meme Coin Logo" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-cyan-400 shadow-lg shadow-cyan-400/50 mx-2">
+                    <span class="meme-text text-white text-xl md:text-2xl lg:text-3xl hidden sm:inline-block">c²</span>
+                </div>
+                <!-- For mobile, show the split equation above and below logo -->
+                <div class="flex flex-row items-center justify-center w-full sm:hidden mb-2">
+                    <span class="meme-text text-white text-lg">a² + b²</span>
+                    <span class="mx-2"></span>
+                    <span class="meme-text text-white text-lg">c²</span>
                 </div>
                 <!-- Copy Contract Button -->
                 <div class="w-full px-4 sm:w-auto">
@@ -33,25 +40,35 @@
                     </button>
                     <p id="contractAddress" class="hidden">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</p>
                 </div>
-                <!-- Social Links -->
-                <div class="flex space-x-6 pt-4">
-                    <a href="#" class="text-white hover:text-cyan-400 transition-colors">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-                    </a>
-                    <a href="#" class="text-white hover:text-cyan-400 transition-colors">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23a.66.66 0 00-.08-.4l-4.06-3.95a.66.66 0 01.37-1.12l4.24-.62a.67.67 0 00.5-.36l1.9-3.83a.67.67 0 011.2 0l1.9 3.83a.67.67 0 00.5.36l4.24.62a.66.66 0 01.37 1.12l-4.06 3.95a.66.66 0 00-.08.4l.28 4.23a.66.66 0 01-.96.7l-3.79-1.99a.67.67 0 00-.62 0l-3.79 1.99a.66.66 0 01-.96-.7z" clip-rule="evenodd" fill-rule="evenodd" /></svg>
-                    </a>
-                </div>
             </div>
             <!-- Right Video -->
             <div class="hidden lg:flex justify-center gif-container" style="animation-delay: -3s;">
                 <video src="clip.mp4" class="rounded-lg shadow-lg w-3/4" autoplay loop muted playsinline></video>
             </div>
-            <!-- Mobile Videos -->
-            <div class="lg:hidden flex justify-around w-full mt-8">
-                <video src="clip.mp4" class="rounded-lg shadow-lg w-2/5" autoplay loop muted playsinline></video>
-                <video src="clip.mp4" class="rounded-lg shadow-lg w-2/5" autoplay loop muted playsinline></video>
+        </div>
+        <!-- Meme Text Below Logo and Between Videos -->
+        <div class="flex flex-col lg:flex-row items-center justify-center w-full mt-8">
+            <!-- Left Video for mobile -->
+            <div class="lg:hidden flex justify-center w-2/5 gif-container">
+                <video src="clip.mp4" class="rounded-lg shadow-lg w-full" autoplay loop muted playsinline></video>
             </div>
+            <!-- Meme Text -->
+            <div class="flex-1 flex justify-center items-center w-full my-4 lg:my-0">
+                <span class="meme-text text-yellow-300 text-xl md:text-2xl lg:text-3xl whitespace-nowrap">Autism² + Bagholder² = Community²</span>
+            </div>
+            <!-- Right Video for mobile -->
+            <div class="lg:hidden flex justify-center w-2/5 gif-container">
+                <video src="clip.mp4" class="rounded-lg shadow-lg w-full" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+        <!-- Social Links -->
+        <div class="flex space-x-6 pt-4 justify-center">
+            <a href="#" class="text-white hover:text-cyan-400 transition-colors">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
+            </a>
+            <a href="#" class="text-white hover:text-cyan-400 transition-colors">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23a.66.66 0 00-.08-.4l-4.06-3.95a.66.66 0 01.37-1.12l4.24-.62a.67.67 0 00.5-.36l1.9-3.83a.67.67 0 011.2 0l1.9 3.83a.67.67 0 00.5.36l4.24.62a.66.66 0 01.37 1.12l-4.06 3.95a.66.66 0 00-.08.4l.28 4.23a.66.66 0 01-.96.7l-3.79-1.99a.67.67 0 00-.62 0l-3.79 1.99a.66.66 0 01-.96-.7z" clip-rule="evenodd" fill-rule="evenodd" /></svg>
+            </a>
         </div>
     </div>
     <script src="script.js"></script>
