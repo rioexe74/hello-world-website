@@ -3,53 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Coin</title>
+    <title>a² + b² = c²</title>
+    <!-- Chosen Palette: Futurist Noir (Near-Black, Glowing Cyan, Volatile Magenta, White) -->
+    <!-- Application Structure Plan: A single-page, scroll-driven narrative shrine. The user journey is linear: Arrival at a mysterious portal, engagement with the central, interactive formula, and culmination in a ritualistic 'copy address' action. This structure was chosen to create an immersive, atmospheric experience that feels like a digital cult initiation, directly translating the source brief's core concept over a traditional informational layout. -->
+    <!-- Visualization & Content Choices: Formula -> Goal: Central Relic -> Viz: Large, 3D-effect CSS text with glow/glitch -> Interaction: Hover-based glitch -> Justification: Makes the core idea a dynamic, sacred object. Videos -> Goal: Symbolic Pillars -> Viz: Flanking, looping videos with CRT filter -> Interaction: Hover-glow -> Justification: Represents the two core identities. Button -> Goal: Ritualistic Action -> Viz: Futuristic UI -> Interaction: Multi-stage JS animation on click -> Justification: Turns a utility into a memorable climax. Logo -> Goal: Brand Sigil -> Viz: Floating animated image -> Justification: Fulfills brief requirement. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Impact&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glow-cyan: #00ffff;
+            --glow-magenta: #ff00ff;
+            --bg-color: #050508;
+            --text-color: #f5f5f5;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .font-chakra {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .video-container {
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+            z-index: 1;
+            pointer-events: none;
+            animation: scanlines 10s linear infinite;
+        }
+
+        @keyframes scanlines {
+            from { background-position: 0 0; }
+            to { background-position: 0 -100px; }
+        }
+
+        .video-container:hover {
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .video-element {
+            filter: saturate(0.8) contrast(1.2);
+            opacity: 0.8;
+        }
+
+        .formula-text {
+            font-size: clamp(2rem, 8vw, 6rem);
+            text-shadow: 0 0 5px var(--text-color), 0 0 15px var(--glow-cyan), 0 0 30px var(--glow-magenta);
+            transition: all 0.3s ease;
+            perspective: 800px;
+        }
+
+        .formula-text span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .formula-text:hover span {
+             transform: translateZ(20px) rotateY(15deg);
+        }
+
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text:hover::before,
+        .glitch-text:hover::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            overflow: hidden;
+        }
+
+        .glitch-text:hover::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--glow-magenta);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-text:hover::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--glow-cyan), 2px 2px var(--glow-magenta);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
+            10% { clip-path: polygon(0 75%, 100% 75%, 100% 75%, 0 75%); }
+            20% { clip-path: polygon(0 40%, 100% 40%, 100% 40%, 0 40%); }
+            30% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
+            40% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); }
+            50% { clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%); }
+            60% { clip-path: polygon(0 70%, 100% 70%, 100% 71%, 0 71%); }
+            70% { clip-path: polygon(0 90%, 100% 90%, 100% 91%, 0 91%); }
+            80% { clip-path: polygon(0 30%, 100% 30%, 100% 31%, 0 31%); }
+            90% { clip-path: polygon(0 80%, 100% 80%, 100% 81%, 0 81%); }
+            100% { clip-path: polygon(0 50%, 100% 50%, 100% 51%, 0 51%); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: polygon(0 5%, 100% 5%, 100% 6%, 0 6%); }
+            10% { clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%); }
+            20% { clip-path: polygon(0 45%, 100% 45%, 100% 45%, 0 45%); }
+            30% { clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%); }
+            40% { clip-path: polygon(0 25%, 100% 25%, 100% 26%, 0 26%); }
+            50% { clip-path: polygon(0 55%, 100% 55%, 100% 60%, 0 60%); }
+            60% { clip-path: polygon(0 75%, 100% 75%, 100% 76%, 0 76%); }
+            70% { clip-path: polygon(0 95%, 100% 95%, 100% 96%, 0 96%); }
+            80% { clip-path: polygon(0 35%, 100% 35%, 100% 36%, 0 36%); }
+            90% { clip-path: polygon(0 85%, 100% 85%, 100% 86%, 0 86%); }
+            100% { clip-path: polygon(0 55%, 100% 55%, 100% 56%, 0 56%); }
+        }
+
+        .copy-button {
+            background: transparent;
+            border: 1px solid var(--glow-cyan);
+            color: var(--glow-cyan);
+            text-shadow: 0 0 10px var(--glow-cyan);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-button:hover {
+            background: var(--glow-cyan);
+            color: var(--bg-color);
+            text-shadow: none;
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .copy-button .sparkle {
+            position: absolute;
+            background-color: white;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle-anim 0.8s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes sparkle-anim {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+    </style>
 </head>
-<body class="p-4 overflow-y-auto py-20">
-    <div class="w-full max-w-7xl mx-auto relative">
-        <div class="absolute -left-24 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
-            <div class="border-8 border-cyan-400 border-double p-2 bg-black rounded-lg shadow-2xl shadow-cyan-400/50">
-                <video src="clip.mp4" alt="Left Video" class="w-64 h-64 object-cover rounded" autoplay loop muted>
-                    Your browser does not support the video tag.
-                </video>
+<body class="bg-black text-white min-h-screen flex flex-col items-center justify-between p-4 sm:p-8">
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="w-full flex justify-center py-4">
+        <img src="logo.png" alt="Logo" class="h-16 sm:h-20 floating" onerror="this.style.display='none'">
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center w-full max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center w-full">
+            
+            <div class="flex flex-col items-center justify-center space-y-2">
+                <h2 class="text-xl sm:text-2xl font-chakra tracking-widest text-cyan-400">Autism²</h2>
+                <div class="video-container w-full max-w-sm h-64 sm:h-80 rounded-lg">
+                    <video class="video-element w-full h-full object-cover" src="clip.mp4" autoplay loop muted playsinline></video>
+                </div>
             </div>
+
+            <div class="text-center py-8 lg:py-0">
+                <h1 class="formula-text glitch-text font-bold" data-text="a² + b² = c²">
+                    <span>a²</span><span>+</span><span>b²</span><span>=</span><span>c²</span>
+                </h1>
+                <p class="mt-4 text-lg sm:text-xl font-chakra tracking-widest text-gray-400">Autism² + Bagholder² = Community²</p>
+            </div>
+            
+            <div class="flex flex-col items-center justify-center space-y-2">
+                <h2 class="text-xl sm:text-2xl font-chakra tracking-widest text-magenta-500">Bagholder²</h2>
+                <div class="video-container w-full max-w-sm h-64 sm:h-80 rounded-lg">
+                    <video class="video-element w-full h-full object-cover" src="clip2.mp4" autoplay loop muted playsinline></video>
+                </div>
+            </div>
+
         </div>
-        
-        <div class="absolute -right-24 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
-            <div class="border-8 border-fuchsia-500 border-double p-2 bg-black rounded-lg shadow-2xl shadow-fuchsia-500/50">
-                <video src="clip2.mp4" alt="Right Video" class="w-64 h-64 object-cover rounded" autoplay loop muted>
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-        
-        <div class="flex flex-col items-center text-center space-y-6 px-4 md:px-64">
-            <img src="logo.png" alt="Meme Coin Logo" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full border-4 border-cyan-400 shadow-lg shadow-cyan-400/50">
-            <div class="text-white text-3xl md:text-4xl lg:text-5xl space-y-2 meme-text px-2 mt-16">
-                <p>a² + b² = c²</p>
-                <p class="whitespace-nowrap">Autism² + Bagholder² = Community²</p>
-            </div>
-            <div class="w-full px-4 sm:w-auto mt-8">
-                <button id="copyButton" class="btn-copy w-full bg-cyan-400 text-black border-2 border-white text-2xl md:text-3xl py-3 px-8 rounded-lg shadow-md hover:bg-fuchsia-500 hover:text-white focus:outline-none">
-                    Copy CA
-                </button>
-                <p id="contractAddress" class="hidden">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</p>
-            </div>
-            <div class="flex space-x-6 pt-4">
-                <a href="#" class="text-white hover:text-cyan-400 transition-colors">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-                </a>
-                <a href="#" class="text-white hover:text-cyan-400 transition-colors">
-                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23a.66.66 0 00-.08-.4l-4.06-3.95a.66.66 0 01.37-1.12l4.24-.62a.67.67 0 00.5-.36l1.9-3.83a.67.67 0 011.2 0l1.9 3.83a.67.67 0 00.5.36l4.24.62a.66.66 0 01.37 1.12l-4.06 3.95a.66.66 0 00-.08.4l.28 4.23a.66.66 0 01-.96.7l-3.79-1.99a.67.67 0 00-.62 0l-3.79 1.99a.66.66 0 01-.96-.7z" clip-rule="evenodd" fill-rule="evenodd" /></svg>
-                </a>
-            </div>
-        </div>
-    </div>
-    <script src="main.js"></script>
+    </main>
+
+    <footer class="w-full flex flex-col items-center justify-center py-8 space-y-4">
+        <button id="copyButton" class="copy-button font-chakra text-lg sm:text-xl tracking-widest rounded-md">
+            <span id="buttonText">Copy CA</span>
+        </button>
+        <div id="messageBox" class="text-green-400 font-chakra tracking-widest h-6 transition-opacity duration-300 opacity-0"></div>
+        <input type="text" value="2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump" id="contractAddress" class="sr-only">
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            let particles = [];
+            let mouse = { x: width / 2, y: height / 2 };
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.speedX = (Math.random() * 2 - 1) * 0.2;
+                    this.speedY = (Math.random() * 2 - 1) * 0.2;
+                    this.color = 'rgba(0, 255, 255, 0.7)';
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.size > 0.1) this.size -= 0.01;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        this.x -= dx / 20;
+                        this.y -= dy / 20;
+                    }
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                for (let i = 0; i < 100; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].size <= 0.1) {
+                        particles.splice(i, 1);
+                        particles.push(new Particle());
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                particles = [];
+                init();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+
+            const copyButton = document.getElementById('copyButton');
+            const buttonText = document.getElementById('buttonText');
+            const contractAddressInput = document.getElementById('contractAddress');
+            const messageBox = document.getElementById('messageBox');
+
+            copyButton.addEventListener('click', (e) => {
+                const rect = copyButton.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                for (let i = 0; i < 10; i++) {
+                    const sparkle = document.createElement('span');
+                    sparkle.classList.add('sparkle');
+                    sparkle.style.left = `${x}px`;
+                    sparkle.style.top = `${y}px`;
+                    copyButton.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 800);
+                }
+
+                buttonText.textContent = 'COPYING...';
+                copyButton.disabled = true;
+
+                setTimeout(() => {
+                    const textToCopy = contractAddressInput.value;
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = textToCopy;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+
+                    buttonText.textContent = 'COPIED';
+                    messageBox.textContent = 'ADDRESS COPIED TO CLIPBOARD';
+                    messageBox.style.opacity = '1';
+
+                    setTimeout(() => {
+                        buttonText.textContent = 'Copy CA';
+                        messageBox.style.opacity = '0';
+                        copyButton.disabled = false;
+                    }, 3000);
+
+                }, 1500);
+            });
+        });
+    </script>
 </body>
 </html>
