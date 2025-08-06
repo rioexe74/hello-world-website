@@ -4,7 +4,6 @@ body {
     color: #ffffff;
     overflow-x: hidden;
 }
-/* Custom styles for meme energy */
 .meme-text {
     font-family: 'Impact', 'Bebas Neue', sans-serif;
     text-shadow: 2px 2px 4px #ff00ff, -2px -2px 4px #00ffff;
@@ -26,4 +25,3 @@ body {
     50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
 }
-  
