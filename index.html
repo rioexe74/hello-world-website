@@ -171,11 +171,21 @@
 
         .manifesto-image {
             transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
-            overflow: hidden;
             border-radius: 0.5rem;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .manifesto-image img {
              transition: transform 0.4s ease, filter 0.4s ease;
+             max-width: 100%;
+             height: auto;
+             display: block;
+             min-height: 200px;
+             object-fit: cover;
         }
         .manifesto-image:hover {
             transform: scale(1.03);
@@ -258,13 +268,15 @@
                     <p class="mt-4 text-gray-300">This is the power of hyper-focus. The ability to stare at charts for 72 hours straight, fueled by nothing but lukewarm coffee and pure obsession. It's the deep-dive research into obscure whitepapers, the pattern recognition that sees the future. It's not a bug; it's our greatest feature, squared.</p>
                 </div>
                 <div class="fade-in-section manifesto-image" style="box-shadow: 0 0 20px var(--neon-pink);">
-                    <img src="autism.jpeg" alt="Autism representation" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                    <img src="autism.jpeg" alt="Autism representation" class="rounded-lg shadow-lg w-full h-auto object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';">
+                    <div style="display: none; color: var(--neon-pink); font-size: 1.5rem; text-align: center;">Image not found: autism.jpeg</div>
                 </div>
             </div>
             
             <div class="mt-16 grid md:grid-cols-2 gap-12 items-center">
                  <div class="order-2 md:order-1 fade-in-section manifesto-image" style="box-shadow: 0 0 20px var(--neon-blue);">
-                    <img src="bagholder.jpg" alt="Bagholder representation" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                    <img src="bagholder.jpg" alt="Bagholder representation" class="rounded-lg shadow-lg w-full h-auto object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';">
+                    <div style="display: none; color: var(--neon-blue); font-size: 1.5rem; text-align: center;">Image not found: bagholder.jpg</div>
                 </div>
                 <div class="order-1 md:order-2 fade-in-section">
                     <h3 class="font-heading text-4xl text-neon-blue">Bagholder²</h3>
@@ -496,6 +508,17 @@
 
             sections.forEach(section => {
                 observer.observe(section);
+            });
+
+            // Image loading debug
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', () => {
+                    console.log('Image loaded successfully:', img.src);
+                });
+                img.addEventListener('error', () => {
+                    console.error('Image failed to load:', img.src);
+                });
             });
         });
     </script>
