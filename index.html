@@ -1,33 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Chosen Palette: Neon on a Chalkboard -->
+    <!-- Application Structure Plan: The application is designed as a single-page narrative scroll, guiding the user from the core concept (Hero) through the philosophy (Manifesto), key data (Tokenomics), and cultural proof (Memes), culminating in a call to join the community. This non-linear, thematic structure was chosen over a rigid report-like layout to maximize engagement for a meme coin audience, making the exploration feel like discovering an inside joke rather than reading a document. Key interactions include scroll-triggered animations to make the content feel alive, and a flawless 'Copy CA' button to minimize friction at the primary conversion point. -->
+    <!-- Visualization & Content Choices: The report's core formula is presented as the main headline (Goal: Inform). The Manifesto section uses alternating text and image blocks (Goal: Organize/Explain) with scroll animations to create a dynamic reading experience. Tokenomics are displayed in bold, clear infographic-style cards (Goal: Inform/Compare) that pop into view. The meme gallery uses a grid of GIFs and images (Goal: Relate/Engage) to showcase the project's culture. All interactions are handled with vanilla JS (Intersection Observer for scroll effects, Clipboard API for copy functionality) to keep the site lightweight and fast, confirming NO SVG/Mermaid is used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>a² + b² = c²</title>
-    <!-- Chosen Palette: Futurist Noir (Near-Black, Glowing Cyan, Volatile Magenta, White) -->
-    <!-- Application Structure Plan: A single-page, scroll-driven narrative shrine. The user journey is linear: Arrival at a mysterious portal, engagement with the central, interactive formula, and culmination in a ritualistic 'copy address' action. This structure was chosen to create an immersive, atmospheric experience that feels like a digital cult initiation, directly translating the source brief's core concept over a traditional informational layout. -->
-    <!-- Visualization & Content Choices: Formula -> Goal: Central Relic -> Viz: Large, 3D-effect CSS text with glow/glitch -> Interaction: Hover-based glitch -> Justification: Makes the core idea a dynamic, sacred object. Videos -> Goal: Symbolic Pillars -> Viz: Flanking, looping videos with CRT filter -> Interaction: Hover-glow -> Justification: Represents the two core identities. Button -> Goal: Ritualistic Action -> Viz: Futuristic UI -> Interaction: Multi-stage JS animation on click -> Justification: Turns a utility into a memorable climax. Logo -> Goal: Brand Sigil -> Viz: Floating animated image -> Justification: Fulfills brief requirement. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Ojuju:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glow-cyan: #00ffff;
-            --glow-magenta: #ff00ff;
-            --bg-color: #050508;
-            --text-color: #f5f5f5;
+            --bg-dark: #1A1A2E;
+            --neon-lime: #BAFF39;
+            --neon-pink: #D8125B;
+            --neon-blue: #1F51FF;
+            --text-light: #E0E0E0;
+            --text-dark: #111827;
         }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            cursor: crosshair;
+            scroll-behavior: smooth;
         }
-
+        .font-heading {
+            font-family: 'Ojuju', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, var(--neon-blue), var(--neon-pink), var(--bg-dark), var(--neon-lime));
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -36,330 +55,354 @@
             height: 100%;
             z-index: -1;
         }
-        
-        .font-chakra {
-            font-family: 'Chakra Petch', sans-serif;
+        .text-glow {
+            text-shadow: 0 0 8px var(--neon-lime), 0 0 12px var(--neon-lime);
         }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .video-container {
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.1);
+        .btn-primary {
+            background-color: var(--neon-lime);
+            color: var(--text-dark);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 0 15px rgba(186, 255, 57, 0.5);
         }
-        
-        .video-container::before {
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(186, 255, 57, 0.8);
+        }
+        .copy-ca-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid var(--neon-lime);
+            backdrop-filter: blur(5px);
+        }
+        .copy-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .copy-tooltip.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .logo-triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86.6px solid var(--neon-lime);
+            position: relative;
+            filter: drop-shadow(0 0 10px var(--neon-lime));
+        }
+        .logo-triangle::before, .logo-triangle::after {
             content: '';
             position: absolute;
+            background-color: var(--neon-pink);
+            filter: drop-shadow(0 0 10px var(--neon-pink));
+        }
+        .logo-triangle::before {
+            width: 50px;
+            height: 50px;
+            top: 43.3px;
+            left: -75px;
+            transform: rotate(45deg);
+        }
+        .logo-triangle::after {
+            width: 86.6px;
+            height: 86.6px;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
-            z-index: 1;
-            pointer-events: none;
-            animation: scanlines 10s linear infinite;
+            right: -136.6px;
+            transform: rotate(45deg);
         }
-
-        @keyframes scanlines {
-            from { background-position: 0 0; }
-            to { background-position: 0 -100px; }
+        .meme-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .video-container:hover {
-            border-color: var(--glow-cyan);
-            box-shadow: 0 0 30px var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.3);
+        .meme-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-pink);
         }
-
-        .video-element {
-            filter: saturate(0.8) contrast(1.2);
-            opacity: 0.8;
-        }
-
-        .formula-text {
-            font-size: clamp(2rem, 8vw, 6rem);
-            text-shadow: 0 0 5px var(--text-color), 0 0 15px var(--glow-cyan), 0 0 30px var(--glow-magenta);
-            transition: all 0.3s ease;
-            perspective: 800px;
-        }
-
-        .formula-text span {
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .formula-text:hover span {
-             transform: translateZ(20px) rotateY(15deg);
-        }
-
-        .glitch-text {
-            position: relative;
-        }
-
-        .glitch-text:hover::before,
-        .glitch-text:hover::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
-            overflow: hidden;
-        }
-
-        .glitch-text:hover::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--glow-magenta);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-
-        .glitch-text:hover::after {
-            left: -2px;
-            text-shadow: -2px 0 var(--glow-cyan), 2px 2px var(--glow-magenta);
-            animation: glitch-anim-2 2s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim-1 {
-            0% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
-            10% { clip-path: polygon(0 75%, 100% 75%, 100% 75%, 0 75%); }
-            20% { clip-path: polygon(0 40%, 100% 40%, 100% 40%, 0 40%); }
-            30% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
-            40% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); }
-            50% { clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%); }
-            60% { clip-path: polygon(0 70%, 100% 70%, 100% 71%, 0 71%); }
-            70% { clip-path: polygon(0 90%, 100% 90%, 100% 91%, 0 91%); }
-            80% { clip-path: polygon(0 30%, 100% 30%, 100% 31%, 0 31%); }
-            90% { clip-path: polygon(0 80%, 100% 80%, 100% 81%, 0 81%); }
-            100% { clip-path: polygon(0 50%, 100% 50%, 100% 51%, 0 51%); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip-path: polygon(0 5%, 100% 5%, 100% 6%, 0 6%); }
-            10% { clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%); }
-            20% { clip-path: polygon(0 45%, 100% 45%, 100% 45%, 0 45%); }
-            30% { clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%); }
-            40% { clip-path: polygon(0 25%, 100% 25%, 100% 26%, 0 26%); }
-            50% { clip-path: polygon(0 55%, 100% 55%, 100% 60%, 0 60%); }
-            60% { clip-path: polygon(0 75%, 100% 75%, 100% 76%, 0 76%); }
-            70% { clip-path: polygon(0 95%, 100% 95%, 100% 96%, 0 96%); }
-            80% { clip-path: polygon(0 35%, 100% 35%, 100% 36%, 0 36%); }
-            90% { clip-path: polygon(0 85%, 100% 85%, 100% 86%, 0 86%); }
-            100% { clip-path: polygon(0 55%, 100% 55%, 100% 56%, 0 56%); }
-        }
-
-        .copy-button {
-            background: transparent;
-            border: 1px solid var(--glow-cyan);
-            color: var(--glow-cyan);
-            text-shadow: 0 0 10px var(--glow-cyan);
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .copy-button:hover {
-            background: var(--glow-cyan);
-            color: var(--bg-color);
-            text-shadow: none;
-            box-shadow: 0 0 20px var(--glow-cyan);
-        }
-
-        .copy-button .sparkle {
-            position: absolute;
-            background-color: white;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: sparkle-anim 0.8s ease-out;
-            transform: translate(-50%, -50%);
-        }
-
-        @keyframes sparkle-anim {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-
     </style>
 </head>
-<body class="bg-black text-white min-h-screen flex flex-col items-center justify-between p-4 sm:p-8">
+<body class="antialiased">
+    <div class="gradient-bg"></div>
     <canvas id="particle-canvas"></canvas>
 
-    <header class="w-full flex justify-center py-4">
-        <img src="logo.png" alt="Logo" class="h-16 sm:h-20 floating" onerror="this.style.display='none'">
-    </header>
+    <div class="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+        <header class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
+            <div class="w-24 h-24 flex items-center justify-center">
+                 <div class="logo-triangle"></div>
+            </div>
+            <nav class="flex items-center space-x-4 md:space-x-6">
+                <a href="#manifesto" class="text-sm md:text-base hover:text-glow transition-all duration-300">Manifesto</a>
+                <a href="#tokenomics" class="text-sm md:text-base hover:text-glow transition-all duration-300">Tokenomics</a>
+                <a href="#memes" class="text-sm md:text-base hover:text-glow transition-all duration-300">Memes</a>
+                <a href="https://x.com" target="_blank" class="text-2xl hover:text-glow transition-all duration-300">𝕏</a>
+                <a href="https://telegram.org" target="_blank" class="text-2xl hover:text-glow transition-all duration-300">✈️</a>
+            </nav>
+        </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center w-full max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center w-full">
+        <main class="z-10">
+            <h1 class="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-glow">
+                Autism² + Bagholder²
+            </h1>
+            <h2 class="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mt-2">= Community²</h2>
+            <p class="mt-8 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                The fundamental theorem of our universe. A sacred geometry understood only by the truly dedicated.
+            </p>
+            <div class="mt-10">
+                <div class="copy-ca-wrapper rounded-lg p-2 sm:p-3">
+                    <span id="contractAddress" class="text-xs sm:text-sm md:text-base text-gray-300 font-mono break-all mr-2 sm:mr-4">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</span>
+                    <button id="copyButton" class="btn-primary font-bold py-2 px-4 rounded-md text-sm sm:text-base whitespace-nowrap">
+                        Copy CA
+                    </button>
+                    <div id="copyTooltip" class="copy-tooltip bg-black text-white text-xs rounded py-1 px-2">
+                        Copied!
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="relative bg-black bg-opacity-30 backdrop-blur-md z-10">
+        <section id="manifesto" class="py-20 px-4 max-w-5xl mx-auto fade-in-section">
+            <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">The Theorem</h2>
+            <p class="text-center mt-4 text-lg text-gray-300 max-w-3xl mx-auto">This isn't just a meme. It's a law of nature. It's the equation that explains why we always win, even when we're losing. It's the proof of our collective strength.</p>
+
+            <div class="mt-16 grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-section">
+                    <h3 class="font-heading text-4xl text-neon-pink">Autism²</h3>
+                    <p class="mt-4 text-gray-300">This is the power of hyper-focus. The ability to stare at charts for 72 hours straight, fueled by nothing but lukewarm coffee and pure obsession. It's the deep-dive research into obscure whitepapers, the pattern recognition that sees the future. It's not a bug; it's our greatest feature, squared.</p>
+                </div>
+                <div class="fade-in-section">
+                    <img src="https://media.tenor.com/E7_17yK2F8wAAAAC/pepe-the-frog-math.gif" alt="Pepe the Frog at a chalkboard with math equations" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-pink);">
+                </div>
+            </div>
             
-            <div class="flex flex-col items-center justify-center space-y-2">
-                <h2 class="text-xl sm:text-2xl font-chakra tracking-widest text-cyan-400">Autism²</h2>
-                <div class="video-container w-full max-w-sm h-64 sm:h-80 rounded-lg">
-                    <video class="video-element w-full h-full object-cover" src="clip.mp4" autoplay loop muted playsinline></video>
+            <div class="mt-16 grid md:grid-cols-2 gap-12 items-center">
+                 <div class="order-2 md:order-1 fade-in-section">
+                    <img src="https://media.tenor.com/wO35Iay3pWAAAAAC/bag-holder.gif" alt="A character holding bags through a storm" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-blue);">
+                </div>
+                <div class="order-1 md:order-2 fade-in-section">
+                    <h3 class="font-heading text-4xl text-neon-blue">Bagholder²</h3>
+                    <p class="mt-4 text-gray-300">A term of weakness for them, a badge of honor for us. To be a bagholder is to have conviction. It's to HODL through the 90% dips, to laugh in the face of FUD, to have hands forged from pure, unadulterated diamond. Our resilience isn't just added; it's multiplied.</p>
                 </div>
             </div>
 
-            <div class="text-center py-8 lg:py-0">
-                <h1 class="formula-text glitch-text font-bold" data-text="a² + b² = c²">
-                    <span>a²</span><span>+</span><span>b²</span><span>=</span><span>c²</span>
-                </h1>
-                <p class="mt-4 text-lg sm:text-xl font-chakra tracking-widest text-gray-400">Autism² + Bagholder² = Community²</p>
-            </div>
-            
-            <div class="flex flex-col items-center justify-center space-y-2">
-                <h2 class="text-xl sm:text-2xl font-chakra tracking-widest text-magenta-500">Bagholder²</h2>
-                <div class="video-container w-full max-w-sm h-64 sm:h-80 rounded-lg">
-                    <video class="video-element w-full h-full object-cover" src="clip2.mp4" autoplay loop muted playsinline></video>
+            <div class="mt-16 grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-section">
+                    <h3 class="font-heading text-4xl text-neon-lime">Community²</h3>
+                    <p class="mt-4 text-gray-300">The hypotenuse. The resultant vector. This is what happens when weaponized autism collides with diamond-handed resilience. We are the force forged in the chaos of the markets, a collective consciousness that transcends individual wallets. We are inevitable.</p>
+                </div>
+                <div class="fade-in-section">
+                    <img src="https://media.tenor.com/o9wE5d3G59gAAAAC/community-team.gif" alt="The cast of the TV show Community celebrating" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-lime);">
                 </div>
             </div>
+        </section>
 
-        </div>
-    </main>
+        <section id="tokenomics" class="py-20 px-4 max-w-6xl mx-auto fade-in-section">
+            <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Tokenomics</h2>
+            <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-lime text-center fade-in-section">
+                    <h3 class="font-heading text-3xl text-neon-lime">Total Supply</h3>
+                    <p class="text-4xl font-bold mt-4">1,000,000,000</p>
+                    <p class="mt-2 text-gray-400">Finite. Just like your patience for paper hands.</p>
+                </div>
+                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-pink text-center fade-in-section" style="transition-delay: 200ms;">
+                    <h3 class="font-heading text-3xl text-neon-pink">Tax</h3>
+                    <p class="text-4xl font-bold mt-4">0% Buy / 0% Sell</p>
+                    <p class="mt-2 text-gray-400">The only tax is the emotional toll of your gains.</p>
+                </div>
+                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-blue text-center fade-in-section" style="transition-delay: 400ms;">
+                    <h3 class="font-heading text-3xl text-neon-blue">Liquidity</h3>
+                    <p class="text-4xl font-bold mt-4">Burnt Forever</p>
+                    <p class="mt-2 text-gray-400">Can't be rugged if there's no rug. Checkmate.</p>
+                </div>
+            </div>
+        </section>
 
-    <footer class="w-full flex flex-col items-center justify-center py-8 space-y-4">
-        <button id="copyButton" class="copy-button font-chakra text-lg sm:text-xl tracking-widest rounded-md">
-            <span id="buttonText">Copy CA</span>
-        </button>
-        <div id="messageBox" class="text-green-400 font-chakra tracking-widest h-6 transition-opacity duration-300 opacity-0"></div>
-        <input type="text" value="2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump" id="contractAddress" class="sr-only">
-    </footer>
+        <section id="memes" class="py-20 px-4 max-w-7xl mx-auto fade-in-section">
+            <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Cultural Artifacts</h2>
+            <p class="text-center mt-4 text-lg text-gray-300 max-w-3xl mx-auto">A curated gallery of our shared experience. If you know, you know.</p>
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section">
+                    <img src="https://media.tenor.com/M1oJ-iK0wzQAAAAC/this-is-fine-dog.gif" alt="This is fine dog meme" class="w-full h-full object-cover">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 100ms;">
+                    <img src="https://media.tenor.com/D6n_2aL9i_MAAAAC/roller-coaster-fail.gif" alt="Roller coaster endurance meme" class="w-full h-full object-cover">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 200ms;">
+                    <img src="https://i.imgflip.com/4cjf45.jpg" alt="Galaxy brain meme about crypto" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 300ms;">
+                    <img src="https://media.tenor.com/gsvT4s_p5ZgAAAAC/to-the-moon-crypto.gif" alt="Rocket to the moon crypto meme" class="w-full h-full object-cover">
+                </div>
+                 <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 400ms;">
+                    <img src="https://media.tenor.com/unE2932C05IAAAAC/wojak-npc.gif" alt="Wojak NPC meme" class="w-full h-full object-cover">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 500ms;">
+                    <img src="https://media.tenor.com/hG92yA0B2VwAAAAC/hodl-crypto.gif" alt="HODL crypto meme" class="w-full h-full object-cover">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 600ms;">
+                    <img src="https://i.kym-cdn.com/entries/icons/original/000/022/818/I_have_3_dollars.jpg" alt="I have 3 dollars meme" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
+                </div>
+                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 700ms;">
+                    <img src="https://media.tenor.com/u_pPZt5n6GIAAAAC/pepe-silvia-charlie-day.gif" alt="Pepe Silvia conspiracy meme" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-12 text-center border-t border-gray-800">
+            <p class="font-heading text-2xl text-glow">Join the Community</p>
+            <div class="flex justify-center space-x-8 mt-4 text-4xl">
+                 <a href="https://x.com" target="_blank" class="hover:text-glow transition-all duration-300">𝕏</a>
+                 <a href="https://telegram.org" target="_blank" class="hover:text-glow transition-all duration-300">✈️</a>
+            </div>
+            <p class="mt-8 text-gray-500 text-sm">&copy; 2025 Community². All rights reserved. Not financial advice.</p>
+        </footer>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Particle Canvas Logic
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
+            const particles = [];
+            const particleChars = ['²', '+', '=', 'a²', 'b²', 'c²', '▲', '▼'];
 
-            let particles = [];
-            let mouse = { x: width / 2, y: height / 2 };
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 1.5 + 0.5;
-                    this.speedX = (Math.random() * 2 - 1) * 0.2;
-                    this.speedY = (Math.random() * 2 - 1) * 0.2;
-                    this.color = 'rgba(0, 255, 255, 0.7)';
+            function createParticle(x, y) {
+                let size, char;
+                // Give a 1 in 10 chance for the particle to be the full formula
+                if (Math.random() > 0.9) {
+                    char = 'a² + b² = c²';
+                    size = Math.random() * 10 + 12; // Make these larger so they are readable
+                } else {
+                    char = particleChars[Math.floor(Math.random() * particleChars.length)];
+                    size = Math.random() * 15 + 5; // Regular size for single characters
                 }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    if (this.size > 0.1) this.size -= 0.01;
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
-
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        this.x -= dx / 20;
-                        this.y -= dy / 20;
-                    }
-                }
-
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
+                
+                particles.push({
+                    x: x || Math.random() * canvas.width,
+                    y: y || Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: size,
+                    char: char,
+                    color: `rgba(186, 255, 57, ${Math.random() * 0.5 + 0.2})` // Neon lime with random opacity
+                });
             }
 
-            function init() {
-                for (let i = 0; i < 100; i++) {
-                    particles.push(new Particle());
-                }
+            // Increase the number of particles for a fuller background
+            for (let i = 0; i < 40; i++) {
+                createParticle();
             }
 
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                    if (particles[i].size <= 0.1) {
-                        particles.splice(i, 1);
-                        particles.push(new Particle());
-                        i--;
-                    }
-                }
-                requestAnimationFrame(animate);
-            }
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
 
-            init();
-            animate();
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    ctx.fillStyle = p.color;
+                    ctx.font = `${p.size}px 'Ojuju'`;
+                    ctx.fillText(p.char, p.x, p.y);
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
 
             window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                particles = [];
-                init();
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             });
 
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.x;
-                mouse.y = e.y;
-            });
-
+            // Copy CA Button Logic
             const copyButton = document.getElementById('copyButton');
-            const buttonText = document.getElementById('buttonText');
-            const contractAddressInput = document.getElementById('contractAddress');
-            const messageBox = document.getElementById('messageBox');
+            const contractAddressSpan = document.getElementById('contractAddress');
+            const tooltip = document.getElementById('copyTooltip');
 
-            copyButton.addEventListener('click', (e) => {
-                const rect = copyButton.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+            if (copyButton) {
+                copyButton.addEventListener('click', () => {
+                    const addressToCopy = contractAddressSpan.textContent;
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(addressToCopy).then(() => {
+                            tooltip.textContent = 'Copied!';
+                            tooltip.classList.add('visible');
+                            copyButton.textContent = 'Copied!';
+                            setTimeout(() => {
+                                tooltip.classList.remove('visible');
+                                copyButton.textContent = 'Copy CA';
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            tooltip.textContent = 'Failed!';
+                            tooltip.classList.add('visible');
+                            setTimeout(() => {
+                                tooltip.classList.remove('visible');
+                            }, 2000);
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        const textArea = document.createElement("textarea");
+                        textArea.value = addressToCopy;
+                        textArea.style.position = "absolute";
+                        textArea.style.left = "-9999px";
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        try {
+                            document.execCommand('copy');
+                            tooltip.textContent = 'Copied!';
+                            tooltip.classList.add('visible');
+                            copyButton.textContent = 'Copied!';
+                            setTimeout(() => {
+                                tooltip.classList.remove('visible');
+                                copyButton.textContent = 'Copy CA';
+                            }, 2000);
+                        } catch (err) {
+                            console.error('Fallback copy failed: ', err);
+                            tooltip.textContent = 'Failed!';
+                            tooltip.classList.add('visible');
+                             setTimeout(() => {
+                                tooltip.classList.remove('visible');
+                            }, 2000);
+                        }
+                        document.body.removeChild(textArea);
+                    }
+                });
+            }
+            
+            // Scroll Animation Logic
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
 
-                for (let i = 0; i < 10; i++) {
-                    const sparkle = document.createElement('span');
-                    sparkle.classList.add('sparkle');
-                    sparkle.style.left = `${x}px`;
-                    sparkle.style.top = `${y}px`;
-                    copyButton.appendChild(sparkle);
-                    setTimeout(() => sparkle.remove(), 800);
-                }
-
-                buttonText.textContent = 'COPYING...';
-                copyButton.disabled = true;
-
-                setTimeout(() => {
-                    const textToCopy = contractAddressInput.value;
-                    const tempTextArea = document.createElement('textarea');
-                    tempTextArea.value = textToCopy;
-                    document.body.appendChild(tempTextArea);
-                    tempTextArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempTextArea);
-
-                    buttonText.textContent = 'COPIED';
-                    messageBox.textContent = 'ADDRESS COPIED TO CLIPBOARD';
-                    messageBox.style.opacity = '1';
-
-                    setTimeout(() => {
-                        buttonText.textContent = 'Copy CA';
-                        messageBox.style.opacity = '0';
-                        copyButton.disabled = false;
-                    }, 3000);
-
-                }, 1500);
+            sections.forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
