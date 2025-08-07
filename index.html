@@ -194,26 +194,7 @@
             transform: scale(1.1);
             filter: saturate(150%);
         }
-        .tokenomics-card {
-            background-color: rgba(26, 26, 46, 0.5);
-            border: 1px solid;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-        }
 
-        .tokenomics-card:hover {
-            transform: translateY(-10px);
-            background-color: rgba(40, 40, 60, 0.7);
-        }
-
-        #tokenomics .border-neon-lime:hover {
-            box-shadow: 0 0 20px var(--neon-lime);
-        }
-        #tokenomics .border-neon-pink:hover {
-            box-shadow: 0 0 20px var(--neon-pink);
-        }
-        #tokenomics .border-neon-blue:hover {
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
 
     </style>
 </head>
@@ -228,8 +209,6 @@
             </div>
             <nav class="flex items-center space-x-4 md:space-x-6">
                 <a href="#manifesto" class="text-sm md:text-base hover:text-glow transition-all duration-300">Manifesto</a>
-                <a href="#tokenomics" class="text-sm md:text-base hover:text-glow transition-all duration-300">Tokenomics</a>
-                <a href="#memes" class="text-sm md:text-base hover:text-glow transition-all duration-300">Memes</a>
                 <a href="https://x.com" target="_blank" class="text-2xl hover:text-glow transition-all duration-300">𝕏</a>
                 <a href="https://telegram.org" target="_blank" class="text-2xl hover:text-glow transition-all duration-300">✈️</a>
             </nav>
@@ -245,7 +224,7 @@
             </p>
             <div class="mt-10">
                 <div class="copy-ca-wrapper rounded-lg p-2 sm:p-3">
-                    <span id="contractAddress" class="text-xs sm:text-sm md:text-base text-gray-300 font-mono break-all mr-2 sm:mr-4">2EDu7JKzTpSQQuBPVJ2EbgLFBvwFgzipLgbxnFqApump</span>
+                    <span id="contractAddress" class="text-xs sm:text-sm md:text-base text-gray-300 font-mono break-all mr-2 sm:mr-4">000000000000000000000000000000000</span>
                     <button id="copyButton" class="btn-primary font-bold py-2 px-4 rounded-md text-sm sm:text-base whitespace-nowrap">
                         Copy CA
                     </button>
@@ -293,58 +272,6 @@
                     <video src="clip2.mp4" alt="Community video" class="rounded-lg shadow-lg w-full h-auto object-cover" autoplay loop muted>
                         Your browser does not support the video tag.
                     </video>
-                </div>
-            </div>
-        </section>
-
-        <section id="tokenomics" class="py-20 px-4 max-w-6xl mx-auto fade-in-section">
-            <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Tokenomics</h2>
-            <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-lime">
-                    <h3 class="font-heading text-3xl text-neon-lime">Total Supply</h3>
-                    <p class="text-4xl font-bold mt-4">1,000,000,000</p>
-                    <p class="mt-2 text-gray-400">Finite. Just like your patience for paper hands.</p>
-                </div>
-                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-pink" style="transition-delay: 200ms;">
-                    <h3 class="font-heading text-3xl text-neon-pink">Tax</h3>
-                    <p class="text-4xl font-bold mt-4">0% Buy / 0% Sell</p>
-                    <p class="mt-2 text-gray-400">The only tax is the emotional toll of your gains.</p>
-                </div>
-                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-blue" style="transition-delay: 400ms;">
-                    <h3 class="font-heading text-3xl text-neon-blue">Liquidity</h3>
-                    <p class="text-4xl font-bold mt-4">Burnt Forever</p>
-                    <p class="mt-2 text-gray-400">Can't be rugged if there's no rug. Checkmate.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="memes" class="py-20 px-4 max-w-7xl mx-auto fade-in-section">
-            <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Cultural Artifacts</h2>
-            <p class="text-center mt-4 text-lg text-gray-300 max-w-3xl mx-auto">A curated gallery of our shared experience. If you know, you know.</p>
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section">
-                    <img src="https://media.tenor.com/M1oJ-iK0wzQAAAAC/this-is-fine-dog.gif" alt="This is fine dog meme" class="w-full h-full object-cover">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 100ms;">
-                    <img src="https://media.tenor.com/D6n_2aL9i_MAAAAC/roller-coaster-fail.gif" alt="Roller coaster endurance meme" class="w-full h-full object-cover">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 200ms;">
-                    <img src="https://i.imgflip.com/4cjf45.jpg" alt="Galaxy brain meme about crypto" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 300ms;">
-                    <img src="https://media.tenor.com/gsvT4s_p5ZgAAAAC/to-the-moon-crypto.gif" alt="Rocket to the moon crypto meme" class="w-full h-full object-cover">
-                </div>
-                 <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 400ms;">
-                    <img src="https://media.tenor.com/unE2932C05IAAAAC/wojak-npc.gif" alt="Wojak NPC meme" class="w-full h-full object-cover">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 500ms;">
-                    <img src="https://media.tenor.com/hG92yA0B2VwAAAAC/hodl-crypto.gif" alt="HODL crypto meme" class="w-full h-full object-cover">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 600ms;">
-                    <img src="https://i.kym-cdn.com/entries/icons/original/000/022/818/I_have_3_dollars.jpg" alt="I have 3 dollars meme" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
-                </div>
-                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 700ms;">
-                    <img src="https://media.tenor.com/u_pPZt5n6GIAAAAC/pepe-silvia-charlie-day.gif" alt="Pepe Silvia conspiracy meme" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
