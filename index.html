@@ -57,16 +57,36 @@
         }
         .text-glow {
             text-shadow: 0 0 8px var(--neon-lime), 0 0 12px var(--neon-lime);
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                text-shadow: 0 0 8px var(--neon-lime), 0 0 12px var(--neon-lime);
+            }
+            50% {
+                text-shadow: 0 0 12px var(--neon-lime), 0 0 20px var(--neon-lime);
+            }
         }
         .btn-primary {
             background-color: var(--neon-lime);
             color: var(--text-dark);
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(186, 255, 57, 0.5);
+            animation: pulse-glow-btn 2s infinite ease-in-out;
         }
+        @keyframes pulse-glow-btn {
+            0%, 100% {
+                 box-shadow: 0 0 15px rgba(186, 255, 57, 0.5);
+            }
+            50% {
+                 box-shadow: 0 0 25px rgba(186, 255, 57, 0.8);
+            }
+        }
+
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(186, 255, 57, 0.8);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 35px rgba(186, 255, 57, 1);
         }
         .copy-ca-wrapper {
             position: relative;
@@ -75,7 +95,13 @@
             background-color: rgba(0,0,0,0.3);
             border: 1px solid var(--neon-lime);
             backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
         }
+        .copy-ca-wrapper:hover {
+            border-color: var(--neon-pink);
+            transform: scale(1.02);
+        }
+
         .copy-tooltip {
             visibility: hidden;
             opacity: 0;
@@ -91,8 +117,8 @@
         }
         .fade-in-section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -106,7 +132,12 @@
             border-bottom: 86.6px solid var(--neon-lime);
             position: relative;
             filter: drop-shadow(0 0 10px var(--neon-lime));
+            transition: transform 0.4s ease-in-out;
         }
+        .logo-triangle:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
         .logo-triangle::before, .logo-triangle::after {
             content: '';
             position: absolute;
@@ -128,12 +159,52 @@
             transform: rotate(45deg);
         }
         .meme-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+            border: 2px solid transparent;
         }
         .meme-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 0 25px var(--neon-pink);
+            border-color: var(--neon-pink);
+            filter: brightness(1.2);
+        }
+
+        .manifesto-image {
+            transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .manifesto-image img {
+             transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .manifesto-image:hover {
+            transform: scale(1.03);
+        }
+        .manifesto-image:hover img {
+            transform: scale(1.1);
+            filter: saturate(150%);
+        }
+        .tokenomics-card {
+            background-color: rgba(26, 26, 46, 0.5);
+            border: 1px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .tokenomics-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(40, 40, 60, 0.7);
+        }
+
+        #tokenomics .border-neon-lime:hover {
+            box-shadow: 0 0 20px var(--neon-lime);
+        }
+        #tokenomics .border-neon-pink:hover {
             box-shadow: 0 0 20px var(--neon-pink);
         }
+        #tokenomics .border-neon-blue:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -141,7 +212,7 @@
     <canvas id="particle-canvas"></canvas>
 
     <div class="relative min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
-        <header class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
+        <header class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20">
             <div class="w-24 h-24 flex items-center justify-center">
                  <div class="logo-triangle"></div>
             </div>
@@ -186,14 +257,14 @@
                     <h3 class="font-heading text-4xl text-neon-pink">Autism²</h3>
                     <p class="mt-4 text-gray-300">This is the power of hyper-focus. The ability to stare at charts for 72 hours straight, fueled by nothing but lukewarm coffee and pure obsession. It's the deep-dive research into obscure whitepapers, the pattern recognition that sees the future. It's not a bug; it's our greatest feature, squared.</p>
                 </div>
-                <div class="fade-in-section">
-                    <img src="https://media.tenor.com/E7_17yK2F8wAAAAC/pepe-the-frog-math.gif" alt="Pepe the Frog at a chalkboard with math equations" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-pink);">
+                <div class="fade-in-section manifesto-image" style="box-shadow: 0 0 20px var(--neon-pink);">
+                    <img src="https://media.tenor.com/E7_17yK2F8wAAAAC/pepe-the-frog-math.gif" alt="Pepe the Frog at a chalkboard with math equations" class="rounded-lg shadow-lg w-full h-auto object-cover">
                 </div>
             </div>
             
             <div class="mt-16 grid md:grid-cols-2 gap-12 items-center">
-                 <div class="order-2 md:order-1 fade-in-section">
-                    <img src="https://media.tenor.com/wO35Iay3pWAAAAAC/bag-holder.gif" alt="A character holding bags through a storm" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-blue);">
+                 <div class="order-2 md:order-1 fade-in-section manifesto-image" style="box-shadow: 0 0 20px var(--neon-blue);">
+                    <img src="https://media.tenor.com/wO35Iay3pWAAAAAC/bag-holder.gif" alt="A character holding bags through a storm" class="rounded-lg shadow-lg w-full h-auto object-cover">
                 </div>
                 <div class="order-1 md:order-2 fade-in-section">
                     <h3 class="font-heading text-4xl text-neon-blue">Bagholder²</h3>
@@ -206,8 +277,8 @@
                     <h3 class="font-heading text-4xl text-neon-lime">Community²</h3>
                     <p class="mt-4 text-gray-300">The hypotenuse. The resultant vector. This is what happens when weaponized autism collides with diamond-handed resilience. We are the force forged in the chaos of the markets, a collective consciousness that transcends individual wallets. We are inevitable.</p>
                 </div>
-                <div class="fade-in-section">
-                    <img src="https://media.tenor.com/o9wE5d3G59gAAAAC/community-team.gif" alt="The cast of the TV show Community celebrating" class="rounded-lg shadow-lg w-full h-auto object-cover" style="box-shadow: 0 0 20px var(--neon-lime);">
+                <div class="fade-in-section manifesto-image" style="box-shadow: 0 0 20px var(--neon-lime);">
+                    <img src="https://media.tenor.com/o9wE5d3G59gAAAAC/community-team.gif" alt="The cast of the TV show Community celebrating" class="rounded-lg shadow-lg w-full h-auto object-cover" >
                 </div>
             </div>
         </section>
@@ -215,17 +286,17 @@
         <section id="tokenomics" class="py-20 px-4 max-w-6xl mx-auto fade-in-section">
             <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Tokenomics</h2>
             <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-lime text-center fade-in-section">
+                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-lime">
                     <h3 class="font-heading text-3xl text-neon-lime">Total Supply</h3>
                     <p class="text-4xl font-bold mt-4">1,000,000,000</p>
                     <p class="mt-2 text-gray-400">Finite. Just like your patience for paper hands.</p>
                 </div>
-                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-pink text-center fade-in-section" style="transition-delay: 200ms;">
+                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-pink" style="transition-delay: 200ms;">
                     <h3 class="font-heading text-3xl text-neon-pink">Tax</h3>
                     <p class="text-4xl font-bold mt-4">0% Buy / 0% Sell</p>
                     <p class="mt-2 text-gray-400">The only tax is the emotional toll of your gains.</p>
                 </div>
-                <div class="bg-gray-900 bg-opacity-50 p-8 rounded-xl border border-neon-blue text-center fade-in-section" style="transition-delay: 400ms;">
+                <div class="p-8 rounded-xl text-center fade-in-section tokenomics-card border-neon-blue" style="transition-delay: 400ms;">
                     <h3 class="font-heading text-3xl text-neon-blue">Liquidity</h3>
                     <p class="text-4xl font-bold mt-4">Burnt Forever</p>
                     <p class="mt-2 text-gray-400">Can't be rugged if there's no rug. Checkmate.</p>
@@ -237,28 +308,28 @@
             <h2 class="font-heading text-5xl md:text-6xl text-center font-bold text-glow">Cultural Artifacts</h2>
             <p class="text-center mt-4 text-lg text-gray-300 max-w-3xl mx-auto">A curated gallery of our shared experience. If you know, you know.</p>
             <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section">
                     <img src="https://media.tenor.com/M1oJ-iK0wzQAAAAC/this-is-fine-dog.gif" alt="This is fine dog meme" class="w-full h-full object-cover">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 100ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 100ms;">
                     <img src="https://media.tenor.com/D6n_2aL9i_MAAAAC/roller-coaster-fail.gif" alt="Roller coaster endurance meme" class="w-full h-full object-cover">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 200ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 200ms;">
                     <img src="https://i.imgflip.com/4cjf45.jpg" alt="Galaxy brain meme about crypto" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 300ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 300ms;">
                     <img src="https://media.tenor.com/gsvT4s_p5ZgAAAAC/to-the-moon-crypto.gif" alt="Rocket to the moon crypto meme" class="w-full h-full object-cover">
                 </div>
-                 <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 400ms;">
+                 <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 400ms;">
                     <img src="https://media.tenor.com/unE2932C05IAAAAC/wojak-npc.gif" alt="Wojak NPC meme" class="w-full h-full object-cover">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 500ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 500ms;">
                     <img src="https://media.tenor.com/hG92yA0B2VwAAAAC/hodl-crypto.gif" alt="HODL crypto meme" class="w-full h-full object-cover">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 600ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 600ms;">
                     <img src="https://i.kym-cdn.com/entries/icons/original/000/022/818/I_have_3_dollars.jpg" alt="I have 3 dollars meme" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1A1A2E/E0E0E0?text=Meme+Not+Found';">
                 </div>
-                <div class="meme-card rounded-lg overflow-hidden border-2 border-transparent fade-in-section" style="transition-delay: 700ms;">
+                <div class="meme-card rounded-lg overflow-hidden fade-in-section" style="transition-delay: 700ms;">
                     <img src="https://media.tenor.com/u_pPZt5n6GIAAAAC/pepe-silvia-charlie-day.gif" alt="Pepe Silvia conspiracy meme" class="w-full h-full object-cover">
                 </div>
             </div>
@@ -281,42 +352,62 @@
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = event.clientX;
+                mouse.y = event.clientY;
+            });
 
             const particles = [];
             const particleChars = ['²', '+', '=', 'a²', 'b²', 'c²', '▲', '▼'];
 
             function createParticle(x, y) {
                 let size, char;
-                // Give a 1 in 10 chance for the particle to be the full formula
                 if (Math.random() > 0.9) {
                     char = 'a² + b² = c²';
-                    size = Math.random() * 10 + 12; // Make these larger so they are readable
+                    size = Math.random() * 10 + 12;
                 } else {
                     char = particleChars[Math.floor(Math.random() * particleChars.length)];
-                    size = Math.random() * 15 + 5; // Regular size for single characters
+                    size = Math.random() * 15 + 5;
                 }
                 
                 particles.push({
                     x: x || Math.random() * canvas.width,
                     y: y || Math.random() * canvas.height,
+                    originX: x || Math.random() * canvas.width,
+                    originY: y || Math.random() * canvas.height,
                     vx: (Math.random() - 0.5) * 0.5,
                     vy: (Math.random() - 0.5) * 0.5,
                     size: size,
                     char: char,
-                    color: `rgba(186, 255, 57, ${Math.random() * 0.5 + 0.2})` // Neon lime with random opacity
+                    color: `rgba(186, 255, 57, ${Math.random() * 0.5 + 0.2})`
                 });
             }
 
-            // Increase the number of particles for a fuller background
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 50; i++) { // Increased particle count
                 createParticle();
             }
 
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
+                    // Mouse interaction
+                    let dx = mouse.x - p.x;
+                    let dy = mouse.y - p.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = 100;
+                    let force = (maxDistance - distance) / maxDistance;
+                    
+                    if (distance < maxDistance) {
+                        p.x -= forceDirectionX * force * 1.5;
+                        p.y -= forceDirectionY * force * 1.5;
+                    } else {
+                         p.x += p.vx;
+                         p.y += p.vy;
+                    }
 
                     if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                     if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
@@ -398,7 +489,7 @@
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.15 // A bit more of the element needs to be visible
             });
 
             sections.forEach(section => {
